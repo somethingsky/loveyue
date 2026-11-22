@@ -971,19 +971,35 @@
       go(current + (dy < 0 ? 1 : -1));
     }, { passive: true });
 
-    /* 环境音 */
+    /* 背景音乐 */
     var bs = $('#btnSound');
     if (bs) {
-      bs.addEventListener('click', function () {
-        if (!w.AmbientAudio) return;
-        var on = w.AmbientAudio.toggle();
+      var syncMusicBtn = function (on) {
         bs.classList.toggle('is-on', on);
-        bs.setAttribute('aria-label', on ? '关闭环境音' : '开启环境音');
-        var a = $('#waveA'), b = $('#waveB'), m = $('#muteLine');
-        if (a) a.style.opacity = on ? '0.95' : '0.35';
-        if (b) b.style.opacity = on ? '0.7' : '0.2';
-        if (m) m.style.display = on ? 'none' : '';
+        bs.setAttribute('aria-label', on ? '暂停背景音乐' : '播放背景音乐');
+      };
+      bs.addEventListener('click', function () {
+        if (!w.Bgm) return;
+        w.Bgm.toggle();
       });
+      if (w.Bgm) {
+        w.Bgm.onChange(syncMusicBtn);
+        w.Bgm.preload();
+
+        /* 首次用户交互时自动开播（绕过浏览器自动播放限制） */
+        var autoStarted = false;
+        var firstGesture = function (e) {
+          /* 点在音乐按钮上时不抢跑，交给按钮自己处理 */
+          if (e && e.target && e.target.closest && e.target.closest('#btnSound')) return;
+          if (autoStarted) return;
+          autoStarted = true;
+          d.removeEventListener('pointerdown', firstGesture);
+          d.removeEventListener('keydown', firstGesture);
+          if (w.Bgm && !w.Bgm.playing) w.Bgm.play();
+        };
+        d.addEventListener('pointerdown', firstGesture);
+        d.addEventListener('keydown', firstGesture);
+      }
     }
 
     /* 全屏 */

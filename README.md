@@ -35,14 +35,14 @@ python -m http.server 8080
 - **滚轮** 上下翻页
 - **手机** 上下滑动翻页
 - **键盘** `→` `↓` `PageDown` 下一页，`←` `↑` `PageUp` 上一页，`Home` 回开头，`End` 到结尾
-- **右上角** 环境音开关 / 全屏
+- **右上角** 背景音乐开关 / 全屏
 - **URL 直达** `index.html?scene=3` 或 `index.html#3`
 
 ## 技术要点
 
 - **零构建**，纯 HTML + CSS + 原生 JS
 - **响应式**：桌面 / 平板 / 手机全适配，含安全区 `env(safe-area-inset-*)`
-- **环境音**：Web Audio API 实时合成 Am–F–C–G 琶音 + 混响，默认静音，无版权素材
+- **背景音乐**：《把回忆拼好给你》- cici_，128 kbps / 3.4 分钟，淡入淡出切换，循环播放
 - **动效**：Canvas 粒子系统（爱心树 / 花瓣 / 星点）、CSS 动画、`prefers-reduced-motion` 降级
 - **图片**：全部 WebP，按用途分级压缩
 
@@ -62,9 +62,11 @@ loveyue-modern/
     │   └── scenes.css         # 八个场景样式
     ├── js/
     │   ├── chars.js           # 角色资源定义
-    │   ├── audio.js           # Web Audio 环境音合成
+    │   ├── audio.js           # 背景音乐播放器
     │   └── app.js             # 场景控制与动效
     ├── fonts/                 # Outfit / JetBrains Mono（自托管）
+    ├── audio/
+    │   └── bgm.mp3            # 背景音乐《把回忆拼好给你》
     └── img/
         ├── chars/             # 角色立绘、表情、头像、背景
         └── *.webp             # 氛围图
