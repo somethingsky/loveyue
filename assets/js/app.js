@@ -91,6 +91,8 @@
       leaveScene(prev);
     }
     to.classList.add('active');
+    var scroller = to.querySelector('.scene-inner');
+    if (scroller) scroller.scrollTop = 0;
 
     /* 强制重排，让 .rise 重新播放 */
     void to.offsetWidth;
@@ -948,26 +950,33 @@
     }, { passive: true });
 
     /* 触摸 */
-    var tx = 0, ty = 0, tt = 0;
+    var swipe = null;
     w.addEventListener('touchstart', function (e) {
-      if (e.touches.length !== 1) return;
-      tx = e.touches[0].clientX;
-      ty = e.touches[0].clientY;
-      tt = Date.now();
+      swipe = null;
+      if (e.touches.length !== 1 || e.target.closest('.lightbox, .journey, .code-body')) return;
+      var scrollers = [];
+      for (var el = e.target; el && el !== d.body; el = el.parentElement) {
+        if (!/^(auto|scroll)$/.test(w.getComputedStyle(el).overflowY) ||
+            el.scrollHeight <= el.clientHeight + 4) continue;
+        scrollers.push({
+          atTop: el.scrollTop <= 1,
+          atBottom: el.scrollTop + el.clientHeight >= el.scrollHeight - 2
+        });
+      }
+      swipe = { x: e.touches[0].clientX, y: e.touches[0].clientY, time: Date.now(), scrollers: scrollers };
     }, { passive: true });
 
+    w.addEventListener('touchcancel', function () { swipe = null; }, { passive: true });
+
     w.addEventListener('touchend', function (e) {
-      if (!e.changedTouches.length) return;
-      var dx = e.changedTouches[0].clientX - tx;
-      var dy = e.changedTouches[0].clientY - ty;
-      if (Date.now() - tt > 700) return;
+      var start = swipe;
+      swipe = null;
+      if (!start || !e.changedTouches.length || e.touches.length) return;
+      var dx = e.changedTouches[0].clientX - start.x;
+      var dy = e.changedTouches[0].clientY - start.y;
+      if (Date.now() - start.time > 700) return;
       if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx) * 1.3) return;
-      var sc = e.target.closest('.scene-inner, .term-body, .gallery-grid');
-      if (sc && sc.scrollHeight > sc.clientHeight + 4) {
-        var atTop = sc.scrollTop <= 1;
-        var atBottom = sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 2;
-        if (!(atBottom && dy < 0) && !(atTop && dy > 0)) return;
-      }
+      if (start.scrollers.some(function (sc) { return dy < 0 ? !sc.atBottom : !sc.atTop; })) return;
       go(current + (dy < 0 ? 1 : -1));
     }, { passive: true });
 

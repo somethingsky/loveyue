@@ -1349,14 +1349,7 @@
 
 @media (max-width: 640px) {
   .scene-hero .scene-inner {
-    justify-content: center;
-    padding-top: calc(64px + var(--safe-t));
-    overflow-y: auto;
-    scrollbar-width: none;
-  }
-
-  .scene-hero .scene-inner::-webkit-scrollbar {
-    display: none;
+    padding-top: 0;
   }
 
   .hero-char {
@@ -1459,6 +1452,32 @@
 
   .story-cap {
     font-size: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .scene .scene-inner {
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    justify-content: safe center;
+  }
+
+  .scene .scene-inner > * {
+    flex-shrink: 0;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .scene-tree .scene-inner,
+  .scene-code .scene-inner,
+  .scene-story .scene-inner,
+  .scene-gallery .scene-inner {
+    justify-content: flex-start;
+  }
+
+  .hero-actions {
+    flex-wrap: wrap;
   }
 }
 

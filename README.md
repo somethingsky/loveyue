@@ -49,7 +49,7 @@ python -m http.server 8080
 ## 目录结构
 
 ```
-loveyue-modern/
+confession-web/
 ├── index.html
 ├── README.md
 ├── README-CREDITS.md          # 素材来源与许可（重要）
