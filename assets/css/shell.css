@@ -451,3 +451,66 @@
     padding-bottom: calc(62px + var(--safe-b));
   }
 }
+
+.swipe-hint {
+  display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .scene-pad {
+    touch-action: pan-y pinch-zoom;
+  }
+
+  .scene-code .scene-pad {
+    touch-action: auto;
+  }
+
+  .swipe-hint {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 11px;
+    white-space: nowrap;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    background: #141427;
+    color: #f8d5eb;
+    font-size: 11px;
+    pointer-events: none;
+  }
+
+  .swipe-hint > span {
+    color: #ff93ca;
+  }
+
+  body:has(.scene-terminal.active) .swipe-hint {
+    visibility: hidden;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: no-preference) {
+  .scene.active[data-direction] .scene-inner {
+    animation: chapter-arrive 420ms var(--ease-out) both;
+  }
+
+  .scene.active[data-direction="previous"] .scene-inner {
+    --chapter-offset: -12px;
+  }
+
+  .swipe-hint > span {
+    animation: heart-nudge 1s ease-in-out 3;
+  }
+}
+
+@keyframes chapter-arrive {
+  from { transform: translateX(var(--chapter-offset, 12px)); }
+  to { transform: translateX(0); }
+}
+
+@keyframes heart-nudge {
+  50% { transform: translateX(-5px) scale(1.12); }
+}

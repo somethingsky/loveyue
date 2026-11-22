@@ -1456,11 +1456,17 @@
 }
 
 @media (max-width: 900px) {
-  .scene .scene-inner {
+  .scene .scene-pad {
     overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior-y: contain;
-    justify-content: safe center;
+    padding-bottom: calc(94px + var(--safe-b));
+  }
+
+  .scene .scene-inner {
+    flex: 1 0 auto;
+    overflow: clip visible;
+    justify-content: center;
   }
 
   .scene .scene-inner > * {
@@ -1478,6 +1484,24 @@
 
   .hero-actions {
     flex-wrap: wrap;
+  }
+
+  .story-nav {
+    display: grid;
+    grid-template-columns: repeat(2, 60px);
+    justify-content: center;
+    gap: 8px 20px;
+  }
+
+  .story-nav .idx {
+    grid-column: 1 / -1;
+    margin: 0;
+    text-align: center;
+  }
+
+  .story-nav .nav-btn {
+    width: 60px;
+    height: 54px;
   }
 }
 

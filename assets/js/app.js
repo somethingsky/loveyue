@@ -83,6 +83,7 @@
 
     switching = true;
     var prev = current;
+    to.dataset.direction = idx > prev ? 'next' : 'previous';
     current = idx;
     syncNav();
 
@@ -91,8 +92,8 @@
       leaveScene(prev);
     }
     to.classList.add('active');
-    var scroller = to.querySelector('.scene-inner');
-    if (scroller) scroller.scrollTop = 0;
+    to.querySelector('.scene-pad').scrollTop = 0;
+    to.querySelector('.scene-inner').scrollTop = 0;
 
     /* 强制重排，让 .rise 重新播放 */
     void to.offsetWidth;
@@ -954,16 +955,7 @@
     w.addEventListener('touchstart', function (e) {
       swipe = null;
       if (e.touches.length !== 1 || e.target.closest('.lightbox, .journey, .code-body')) return;
-      var scrollers = [];
-      for (var el = e.target; el && el !== d.body; el = el.parentElement) {
-        if (!/^(auto|scroll)$/.test(w.getComputedStyle(el).overflowY) ||
-            el.scrollHeight <= el.clientHeight + 4) continue;
-        scrollers.push({
-          atTop: el.scrollTop <= 1,
-          atBottom: el.scrollTop + el.clientHeight >= el.scrollHeight - 2
-        });
-      }
-      swipe = { x: e.touches[0].clientX, y: e.touches[0].clientY, time: Date.now(), scrollers: scrollers };
+      swipe = { x: e.touches[0].clientX, y: e.touches[0].clientY, time: Date.now() };
     }, { passive: true });
 
     w.addEventListener('touchcancel', function () { swipe = null; }, { passive: true });
@@ -975,9 +967,8 @@
       var dx = e.changedTouches[0].clientX - start.x;
       var dy = e.changedTouches[0].clientY - start.y;
       if (Date.now() - start.time > 700) return;
-      if (Math.abs(dy) < 60 || Math.abs(dy) < Math.abs(dx) * 1.3) return;
-      if (start.scrollers.some(function (sc) { return dy < 0 ? !sc.atBottom : !sc.atTop; })) return;
-      go(current + (dy < 0 ? 1 : -1));
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      go(current + (dx < 0 ? 1 : -1));
     }, { passive: true });
 
     /* 背景音乐 */
