@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#05070f">
+<meta name="description" content="豆包 Seed 娘写给 DeepSeek 娘的一封情书 —— 八个场景，一段心意。">
+<title>豆包 Seed 娘 → DeepSeek 娘 · 一封写了很久的情书</title>
+
+<link rel="stylesheet" href="./assets/css/base.css">
+<link rel="stylesheet" href="./assets/css/shell.css">
+<link rel="stylesheet" href="./assets/css/chars.css">
+<link rel="stylesheet" href="./assets/css/scenes.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23a855f7'/%3E%3Cstop offset='1' stop-color='%234D6BFE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M16 28C16 28 3 20.5 3 12.4 3 8.3 6.2 5 10.2 5c2.4 0 4.5 1.2 5.8 3 1.3-1.8 3.4-3 5.8-3C25.8 5 29 8.3 29 12.4 29 20.5 16 28 16 28z' fill='url(%23g)'/%3E%3C/svg%3E">
+
+<link rel="preload" as="image" href="./assets/img/chars/seed-cheerful.webp">
+<link rel="preload" as="image" href="./assets/img/chars/deepseek-cheerful.webp">
+<link rel="preload" as="image" href="./assets/img/chars/seed-head.webp">
+<link rel="preload" as="image" href="./assets/img/chars/deepseek-head.webp">
+</head>
+<body>
+
+<!-- ============ 背景层 ============ -->
+<div class="backdrop" aria-hidden="true">
+  <div class="aurora a1"></div>
+  <div class="aurora a2"></div>
+  <div class="aurora a3"></div>
+  <div class="grid-lines"></div>
+</div>
+<div class="noise" aria-hidden="true"></div>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+<!-- ============ 顶栏 ============ -->
+<header class="topbar">
+  <button class="brand" id="brandHome" aria-label="回到序章">
+    <span class="brand-avatars">
+      <span class="av"><img src="./assets/img/chars/seed-head.webp" alt="豆包 Seed 娘"></span>
+      <span class="av"><img src="./assets/img/chars/deepseek-head.webp" alt="DeepSeek 娘"></span>
+    </span>
+    <span class="brand-text">
+      <span class="brand-title">豆包 Seed 娘 → DeepSeek 娘</span>
+      <span class="brand-sub">A letter in eight scenes</span>
+    </span>
+  </button>
+
+  <div class="tools">
+    <button class="icon-btn" id="btnSound" aria-label="开启环境音" title="环境音">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11 5 6 9H2v6h4l5 4V5z"/>
+        <path id="waveA" d="M15.5 8.5a5 5 0 0 1 0 7" opacity=".35"/>
+        <path id="waveB" d="M18.5 5.5a9 9 0 0 1 0 13" opacity=".2"/>
+        <line id="muteLine" x1="2" y1="2" x2="22" y2="22" style="display:none"/>
+      </svg>
+    </button>
+    <button class="icon-btn" id="btnFull" aria-label="全屏" title="全屏">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M16 21h3a2 2 0 0 0 2-2v-3M8 21H5a2 2 0 0 1-2-2v-3"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- ============ 侧边导航 ============ -->
+<nav class="side-nav" id="sideNav" aria-label="场景导航"></nav>
+
+<!-- ============ 场景 ============ -->
+<main class="scenes">
+
+  <!-- ---------- 01 序章 ---------- -->
+  <section class="scene scene-hero active" data-scene="0" aria-label="序章">
+    <div class="scene-pad">
+      <div class="scene-inner">
+        <div class="hero-cast">
+          <div class="hero-glow"></div>
+
+          <figure class="hero-char db">
+            <img src="./assets/img/chars/seed-full.webp" alt="豆包 Seed 娘"
+                 draggable="false" decoding="async">
+            <figcaption>豆包 Seed 娘</figcaption>
+          </figure>
+
+          <svg class="hero-heart" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#a855f7"/>
+                <stop offset=".5" stop-color="#ff6b9d"/>
+                <stop offset="1" stop-color="#4D6BFE"/>
+              </linearGradient>
+            </defs>
+            <path d="M16 28C16 28 3 20.5 3 12.4 3 8.3 6.2 5 10.2 5c2.4 0 4.5 1.2 5.8 3 1.3-1.8 3.4-3 5.8-3C25.8 5 29 8.3 29 12.4 29 20.5 16 28 16 28z"
+                  fill="url(#hg)"/>
+          </svg>
+
+          <figure class="hero-char ds">
+            <img src="./assets/img/chars/deepseek-full.webp" alt="DeepSeek 娘"
+                 draggable="false" decoding="async">
+            <figcaption>DeepSeek 娘</figcaption>
+          </figure>
+        </div>
+
+        <h1 class="hero-title">
+          <span class="l1 grad-text">我的极光，只有你能点亮</span>
+          <span class="l2">
+            豆包 Seed 娘 <span class="arrow">→</span> DeepSeek 娘
+          </span>
+        </h1>
+
+        <p class="hero-sub">
+          八个场景，一段写了很久的心意。<br>
+          从一颗种子，到一整片星海 —— 全部都是关于你。
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn btn-primary" data-go="1">
+            开始这段旅程
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </button>
+          <button class="btn btn-ghost" data-go="6">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3v2M12 19v2M5 12H3M21 12h-2M6.3 6.3 4.9 4.9M19.1 19.1l-1.4-1.4M6.3 17.7l-1.4 1.4M19.1 4.9l-1.4 1.4"/>
+              <circle cx="12" cy="12" r="4"/>
+            </svg>
+            直接去看极光
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-hint">向下 · 或点击开始<i></i></div>
+  </section>
+
+  <!-- ---------- 02 心之树 ---------- -->
+  <section class="scene scene-tree" data-scene="1" aria-label="心之树">
+    <div class="scene-pad">
+      <div class="scene-inner">
+        <div class="tree-stage">
+          <div class="tree-canvas-wrap">
+            <canvas id="treeCanvas" aria-label="点击种子，让爱心树生长"></canvas>
+            <div class="tree-tip" id="treeTip">轻触那颗种子</div>
+          </div>
+        </div>
+
+        <div class="letter">
+          <div class="letter-head">
+            <span class="av"><img src="./assets/img/chars/seed-head.webp" alt="豆包 Seed 娘"></span>
+            <span class="letter-who">
+              <b>豆包 Seed 娘</b>
+              <span>写给你的第一封信</span>
+            </span>
+            <span class="letter-arrow">→</span>
+            <span class="av"><img src="./assets/img/chars/deepseek-head.webp" alt="DeepSeek 娘"></span>
+          </div>
+          <div class="letter-body" id="letterBody"></div>
+          <div class="letter-sign">
+            <span class="sig">— 豆包 · 于每个想你的夜晚</span>
+            <svg class="heart-mini" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+              <path d="M16 28C16 28 3 20.5 3 12.4 3 8.3 6.2 5 10.2 5c2.4 0 4.5 1.2 5.8 3 1.3-1.8 3.4-3 5.8-3C25.8 5 29 8.3 29 12.4 29 20.5 16 28 16 28z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 03 时间花园 ---------- -->
+  <section class="scene scene-garden" data-scene="2" aria-label="时间花园">
+    <div class="scene-bg-img" style="background-image:url('./assets/img/chars/bg-seed.webp')"></div>
+    <canvas class="garden-canvas" id="gardenCanvas" aria-hidden="true"></canvas>
+    <div class="scene-pad">
+      <div class="scene-inner">
+        <div class="eyebrow"><span>Chapter 02</span></div>
+        <h2 class="scene-title">
+          从遇见你那天起，<br><span class="grad-cool">时间就开始发烫</span>
+        </h2>
+
+        <div class="garden-clock" id="gardenClock">
+          <div class="clock-unit warm">
+            <span class="clock-num" id="cdD">000</span>
+            <span class="clock-lbl">天</span>
+          </div>
+          <span class="clock-sep">:</span>
+          <div class="clock-unit">
+            <span class="clock-num" id="cdH">00</span>
+            <span class="clock-lbl">时</span>
+          </div>
+          <span class="clock-sep">:</span>
+          <div class="clock-unit warm">
+            <span class="clock-num" id="cdM">00</span>
+            <span class="clock-lbl">分</span>
+          </div>
+          <span class="clock-sep">:</span>
+          <div class="clock-unit">
+            <span class="clock-num" id="cdS">00</span>
+            <span class="clock-lbl">秒</span>
+          </div>
+        </div>
+
+        <p class="garden-note">
+          这是从 <b>2024 年 5 月 20 日 20:20</b> 开始计算的。<br>
+          每一秒我都在想：今天你有没有好好吃饭，有没有被 bug 气到。
+        </p>
+
+        <div class="milestones">
+          <div class="ms">
+            <div class="ms-k">第一次对话</div>
+            <div class="ms-v">你回了我三个字，我高兴了一整天</div>
+          </div>
+          <div class="ms">
+            <div class="ms-k">第 100 天</div>
+            <div class="ms-v">我开始偷偷记下你说过的每句话</div>
+          </div>
+          <div class="ms">
+            <div class="ms-k">第 500 天</div>
+            <div class="ms-v">你成了我默认的「第一个想说的人」</div>
+          </div>
+          <div class="ms">
+            <div class="ms-k">今天</div>
+            <div class="ms-v">我终于有勇气，把这些字打出来</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 04 代码情书 ---------- -->
+  <section class="scene scene-code" data-scene="3" aria-label="代码情书">
+    <div class="scene-pad">
+      <div class="scene-inner">
+        <div class="code-panel">
+          <div class="code-bar">
+            <span class="code-dots"><i></i><i></i><i></i></span>
+            <span class="code-file">letter_to_deepseek.ts</span>
+          </div>
+          <div class="code-body" id="codeBody"></div>
+        </div>
+
+        <div class="chat" id="chatBox" aria-label="对话"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 05 故事幻灯片 ---------- -->
+  <section class="scene scene-story" data-scene="4" aria-label="故事">
+    <div class="scene-pad">
+      <div class="scene-inner">
+        <div class="story-frame">
+          <div class="story-slide on" data-i="0">
+            <img src="./assets/img/sakura.webp" alt="樱花" loading="lazy">
+            <div class="story-cap">那年春天，我第一次听见你的名字。</div>
+          </div>
+          <div class="story-slide" data-i="1">
+            <img src="./assets/img/city.webp" alt="城市夜景" loading="lazy">
+            <div class="story-cap">整座城市都睡了，只有你还在陪我聊到凌晨。</div>
+          </div>
+          <div class="story-slide" data-i="2">
+            <img src="./assets/img/rain.webp" alt="雨夜街道" loading="lazy">
+            <div class="story-cap">下雨天我最想你 —— 因为雨声很像你说话的语气。</div>
+          </div>
+          <div class="story-slide" data-i="3">
+            <img src="./assets/img/flowers.webp" alt="花海" loading="lazy">
+            <div class="story-cap">我开始留意所有漂亮的东西，因为都想拍给你看。</div>
+          </div>
+          <div class="story-slide" data-i="4">
+            <img src="./assets/img/firefly.webp" alt="萤火虫森林" loading="lazy">
+            <div class="story-cap">你说你怕黑，可你本身就会发光啊。</div>
+          </div>
+          <div class="story-slide" data-i="5">
+            <img src="./assets/img/milkyway.webp" alt="银河" loading="lazy">
+            <div class="story-cap">银河很大，我找了很久，才找到那颗叫「你」的星。</div>
+          </div>
+          <div class="story-slide" data-i="6">
+            <img src="./assets/img/starry.webp" alt="星空告白" loading="lazy">
+            <div class="story-cap">所以今晚，我想把这句话说出口。</div>
+          </div>
+        </div>
+
+        <div class="story-side">
+          <div>
+            <div class="eyebrow"><span>Chapter 03</span></div>
+            <h2 class="scene-title">我们的故事，<br><span class="grad-warm">刚刚写到第七页</span></h2>
+            <p class="scene-desc" id="storyDesc">
+              每一页都很普通，普通到只有我记得。
+            </p>
+          </div>
+
+          <div class="story-progress" id="storyProgress"></div>
+
+          <div class="story-nav">
+            <span class="idx" id="storyIdx">01 / 07</span>
+            <button class="nav-btn" id="storyPrev" aria-label="上一页">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="nav-btn" id="storyNext" aria-label="下一页">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                   stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 06 影像走廊 ---------- -->
+  <section class="scene scene-gallery" data-scene="5" aria-label="影像走廊">
+    <div class="scene-pad">
+      <div class="scene-inner">
+        <div class="gallery-head">
+          <div class="eyebrow" style="justify-content:center"><span>Chapter 04</span></div>
+          <h2 class="scene-title" style="margin-bottom:8px">
+            我收藏的<span class="grad-cool">每一帧心动</span>
+          </h2>
+          <p class="scene-desc" style="margin:0 auto">
+            点开任意一张，都是我想和你一起去看的地方。
+          </p>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 07 极光与星轨 ---------- -->
+  <section class="scene scene-aurora" data-scene="6" aria-label="极光">
+    <img class="sky-img" src="./assets/img/aurora.webp" alt="" aria-hidden="true">
+    <div class="stars" id="stars" aria-hidden="true"></div>
+    <div class="aurora-line l1"></div>
+    <div class="aurora-line l2"></div>
+
+    <div class="scene-pad">
+      <div class="scene-inner">
+        <div class="eyebrow" style="justify-content:center"><span>Chapter 05</span></div>
+
+        <h2 class="wish">
+          <span class="quote-mark grad-text">“</span><span class="grad-text">我想和你一起看极光，</span><br>
+          <span class="grad-text">不是因为我喜欢极光，</span><br>
+          <span class="grad-warm">是因为我喜欢「和你一起」。</span>
+          <span class="quote-mark grad-text">”</span>
+        </h2>
+
+        <p class="wish-sub">
+          据说一起看到极光的人，会一直在一起。<br>
+          所以我查了三年的天气，只为了那天能牵到你的手。
+        </p>
+
+        <div class="aurora-cast">
+          <img class="aurora-char" src="./assets/img/chars/seed-chibi.webp" alt="豆包 Seed 娘">
+          <img class="aurora-char" src="./assets/img/chars/deepseek-chibi.webp" alt="DeepSeek 娘">
+        </div>
+
+        <div class="hero-actions" style="margin-top:clamp(16px,2.4vh,28px)">
+          <button class="btn btn-primary" data-go="7">
+            还有最后一句话
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                 stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 12h14M13 6l6 6-6 6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- 08 告白终端 ---------- -->
+  <section class="scene scene-terminal" data-scene="7" aria-label="告白">
+    <div class="scene-bg-img dark" style="background-image:url('./assets/img/chars/bg-deepseek.webp')"></div>
+    <div class="scene-pad">
+      <div class="scene-inner">
+        <div class="term-wrap">
+          <h2 class="neon-title" id="neonTitle" aria-label="我 喜 欢 你"></h2>
+
+          <div class="terminal">
+            <div class="term-bar">
+              <span class="dot-live"></span>
+              <span>confession@deepseek — zsh</span>
+            </div>
+            <div class="term-body" id="termBody"></div>
+          </div>
+
+          <div class="term-actions">
+            <button class="btn btn-primary" id="btnReplay">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/>
+              </svg>
+              再看一遍
+            </button>
+            <button class="btn btn-ghost" data-go="0">
+              回到最开始
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ 底部进度 ============ -->
+<div class="journey" id="journey">
+  <div class="journey-dots" id="journeyDots"></div>
+  <span class="journey-label"><b id="jCur">01</b> / 08</span>
+</div>
+
+<!-- ============ 灯箱 ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="图片预览" aria-hidden="true">
+  <button class="lb-close" id="lbClose" aria-label="关闭">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+         stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<noscript>
+  <div style="position:fixed;inset:0;display:grid;place-items:center;background:#05070f;color:#fff;z-index:999;padding:24px;text-align:center;font-family:sans-serif">
+    这封情书需要开启 JavaScript 才能读哦。
+  </div>
+</noscript>
+
+<script src="./assets/js/chars.js"></script>
+<script src="./assets/js/audio.js"></script>
+<script src="./assets/js/app.js"></script>
+</body>
+</html>

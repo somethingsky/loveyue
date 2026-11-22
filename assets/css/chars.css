@@ -1,0 +1,250 @@
+/* ==========================================================================
+   Characters — 角色图片样式
+   ========================================================================== */
+
+/* ---------- 角色图片基础 ---------- */
+.char-fig {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* 圆形头像 */
+.char-av,
+.av img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 12%;
+  border-radius: 50%;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ======================================================================
+   Hero 双人立绘
+   ====================================================================== */
+.hero-cast {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin-bottom: clamp(18px, 3vh, 36px);
+  width: 100%;
+  isolation: isolate;
+}
+
+.hero-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -6%;
+  width: min(90vw, 720px);
+  height: 74%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(closest-side, rgba(168, 85, 247, 0.3), transparent 72%),
+    radial-gradient(closest-side at 68% 50%, rgba(77, 107, 254, 0.28), transparent 74%);
+  filter: blur(52px);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.hero-char {
+  position: relative;
+  margin: 0;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: float 6.8s var(--ease-in-out) infinite;
+}
+
+.hero-char img {
+  width: clamp(118px, 15.5vw, 214px);
+  height: auto;
+  max-height: clamp(230px, 33vh, 400px);
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 26px 46px rgba(0, 0, 0, 0.62));
+}
+
+.hero-char.db {
+  animation-delay: -0.4s;
+  margin-right: clamp(-34px, -2.6vw, -10px);
+}
+
+.hero-char.ds {
+  animation-delay: -3.6s;
+  margin-left: clamp(-34px, -2.6vw, -10px);
+}
+
+/* 名牌 */
+.hero-char figcaption {
+  margin-top: clamp(6px, 1vh, 12px);
+  padding: 4px 13px;
+  border-radius: 99px;
+  font-size: clamp(10px, 0.92vw, 11.5px);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+.hero-char.db figcaption {
+  color: #e9d4ff;
+  background: rgba(168, 85, 247, 0.16);
+  border-color: rgba(168, 85, 247, 0.32);
+}
+
+.hero-char.ds figcaption {
+  color: #d3deff;
+  background: rgba(77, 107, 254, 0.16);
+  border-color: rgba(77, 107, 254, 0.32);
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-11px);
+  }
+}
+
+/* 中间的心 */
+.hero-heart {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, -50%);
+  width: clamp(26px, 3.4vw, 46px);
+  z-index: 4;
+  pointer-events: none;
+  animation: heart-beat 2.4s var(--ease-in-out) infinite;
+}
+
+@keyframes heart-beat {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    filter: drop-shadow(0 0 14px rgba(255, 107, 157, 0.55));
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.16);
+    filter: drop-shadow(0 0 26px rgba(255, 107, 157, 0.85));
+  }
+}
+
+/* ======================================================================
+   极光场景的双人 Q 版
+   ====================================================================== */
+.aurora-cast {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(6px, 1.4vw, 20px);
+  margin-top: clamp(14px, 2.4vh, 26px);
+}
+
+.aurora-char {
+  width: clamp(74px, 9vw, 118px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 16px 30px rgba(0, 0, 0, 0.6));
+  animation: float 7.4s var(--ease-in-out) infinite;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.aurora-char:nth-child(2) {
+  animation-delay: -3.7s;
+}
+
+/* ======================================================================
+   头像尺寸（顶栏 / 信头 / 聊天气泡）
+   ====================================================================== */
+.brand-avatars .av,
+.letter-head .av,
+.chat-av {
+  overflow: hidden;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ======================================================================
+   场景背景图（花园 / 终端）
+   ====================================================================== */
+.scene-bg-img {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: -2;
+  opacity: 0.16;
+  filter: blur(1px) saturate(1.05);
+  mask-image: radial-gradient(ellipse 92% 88% at 50% 50%, #000 26%, transparent 88%);
+  -webkit-mask-image: radial-gradient(
+    ellipse 92% 88% at 50% 50%,
+    #000 26%,
+    transparent 88%
+  );
+  pointer-events: none;
+}
+
+.scene-bg-img.dark {
+  opacity: 0.3;
+  filter: blur(0.5px) saturate(1.1) brightness(0.85);
+}
+
+/* ======================================================================
+   响应式
+   ====================================================================== */
+@media (max-width: 900px) {
+  .hero-char img {
+    width: clamp(108px, 25vw, 168px);
+    max-height: 30vh;
+  }
+  .hero-char figcaption {
+    font-size: 10px;
+    padding: 3px 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .hero-char img {
+    width: clamp(96px, 30vw, 138px);
+    max-height: 26vh;
+  }
+  .hero-char.db {
+    margin-right: -26px;
+  }
+  .hero-char.ds {
+    margin-left: -26px;
+  }
+  .hero-char figcaption {
+    font-size: 9px;
+    padding: 3px 8px;
+  }
+  .aurora-char {
+    width: clamp(64px, 19vw, 96px);
+  }
+}
+
+@media (max-height: 720px) and (min-width: 901px) {
+  .hero-char img {
+    width: clamp(96px, 12vw, 152px);
+    max-height: 27vh;
+  }
+}
