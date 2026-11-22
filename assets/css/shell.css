@@ -413,36 +413,6 @@
   .tool-label {
     display: none;
   }
-  .journey {
-    padding: 2px 10px;
-    gap: 6px;
-    bottom: calc(8px + var(--safe-b));
-  }
-  .journey-dots {
-    gap: 0;
-  }
-  .jdot,
-  .jdot.on {
-    width: clamp(25px, 7.6vw, 34px);
-    height: 44px;
-    background: transparent;
-    box-shadow: none;
-  }
-  .jdot::after {
-    inset: 50% auto auto 50%;
-    width: 7px;
-    height: 7px;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.4);
-  }
-  .jdot.on::after {
-    width: 18px;
-    background: linear-gradient(90deg, var(--ds-blue-soft), var(--aurora-pink));
-    box-shadow: 0 0 14px rgba(124, 148, 255, 0.6);
-  }
-  .journey-label {
-    font-size: 10.5px;
-  }
 }
 
 @media (max-width: 900px) and (max-height: 500px) {
@@ -461,15 +431,14 @@
     touch-action: pan-y pinch-zoom;
   }
 
-  .scene-code .scene-pad {
-    touch-action: auto;
-  }
 
   .swipe-hint {
-    position: absolute;
-    bottom: calc(100% + 8px);
+    position: fixed;
+    top: calc(55px + var(--safe-t));
+    z-index: 52;
     left: 50%;
     transform: translateX(-50%);
+    margin: 0;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -493,24 +462,22 @@
 }
 
 @media (hover: none) and (pointer: coarse) and (prefers-reduced-motion: no-preference) {
-  .scene.active[data-direction] .scene-inner {
-    animation: chapter-arrive 420ms var(--ease-out) both;
-  }
-
-  .scene.active[data-direction="previous"] .scene-inner {
-    --chapter-offset: -12px;
-  }
-
   .swipe-hint > span {
     animation: heart-nudge 1s ease-in-out 3;
   }
 }
 
-@keyframes chapter-arrive {
-  from { transform: translateX(var(--chapter-offset, 12px)); }
-  to { transform: translateX(0); }
-}
-
 @keyframes heart-nudge {
   50% { transform: translateX(-5px) scale(1.12); }
+}
+
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+  html, body, .scenes, .scene {
+    overflow: clip;
+    overscroll-behavior: none;
+  }
+
+  .journey {
+    display: none;
+  }
 }

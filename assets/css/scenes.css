@@ -1313,8 +1313,14 @@
   }
 
   .gallery-grid {
+    grid-auto-rows: auto;
+    flex: 0 0 auto;
     max-height: none;
-    overflow-y: visible;
+    overflow: visible;
+  }
+
+  .gcard {
+    aspect-ratio: 4 / 3;
   }
 
   .scene-gallery .scene-inner {
@@ -1457,10 +1463,22 @@
 
 @media (max-width: 900px) {
   .scene .scene-pad {
-    overflow-x: hidden;
+    overflow-x: clip;
     overflow-y: auto;
-    overscroll-behavior-y: contain;
-    padding-bottom: calc(94px + var(--safe-b));
+    overscroll-behavior: none;
+    scrollbar-width: none;
+    padding-top: calc(91px + var(--safe-t));
+    padding-bottom: calc(24px + var(--safe-b));
+  }
+
+  .scene .scene-pad::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scene .code-body {
+    overflow-x: clip;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
 
   .scene .scene-inner {

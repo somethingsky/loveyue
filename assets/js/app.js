@@ -83,7 +83,6 @@
 
     switching = true;
     var prev = current;
-    to.dataset.direction = idx > prev ? 'next' : 'previous';
     current = idx;
     syncNav();
 
@@ -92,8 +91,8 @@
       leaveScene(prev);
     }
     to.classList.add('active');
-    to.querySelector('.scene-pad').scrollTop = 0;
-    to.querySelector('.scene-inner').scrollTop = 0;
+    to.querySelector('.scene-pad').scrollTo(0, 0);
+    to.querySelector('.scene-inner').scrollTo(0, 0);
 
     /* 强制重排，让 .rise 重新播放 */
     void to.offsetWidth;
@@ -954,11 +953,24 @@
     var swipe = null;
     w.addEventListener('touchstart', function (e) {
       swipe = null;
-      if (e.touches.length !== 1 || e.target.closest('.lightbox, .journey, .code-body')) return;
-      swipe = { x: e.touches[0].clientX, y: e.touches[0].clientY, time: Date.now() };
+      if (e.touches.length !== 1 || !e.target.closest('.scene.active .scene-pad') ||
+          e.target.closest('.lightbox')) return;
+      swipe = { x: e.touches[0].clientX, y: e.touches[0].clientY };
     }, { passive: true });
 
     w.addEventListener('touchcancel', function () { swipe = null; }, { passive: true });
+
+    w.addEventListener('touchmove', function (e) {
+      if (!swipe) return;
+      if (e.touches.length !== 1) {
+        swipe = null;
+        return;
+      }
+      var dx = Math.abs(e.touches[0].clientX - swipe.x);
+      var dy = Math.abs(e.touches[0].clientY - swipe.y);
+      if (!swipe.axis && Math.max(dx, dy) > 10) swipe.axis = dx > dy * 1.5 ? 'x' : 'y';
+      if (swipe.axis === 'x' && e.cancelable) e.preventDefault();
+    }, { passive: false });
 
     w.addEventListener('touchend', function (e) {
       var start = swipe;
@@ -966,7 +978,7 @@
       if (!start || !e.changedTouches.length || e.touches.length) return;
       var dx = e.changedTouches[0].clientX - start.x;
       var dy = e.changedTouches[0].clientY - start.y;
-      if (Date.now() - start.time > 700) return;
+      if (start.axis !== 'x') return;
       if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
       go(current + (dx < 0 ? 1 : -1));
     }, { passive: true });
