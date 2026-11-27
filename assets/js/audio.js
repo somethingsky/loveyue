@@ -1,7 +1,7 @@
 /* ==========================================================================
    BGM — 背景音乐播放器
    曲目：《把回忆拼好给你》 - cici_
-   默认不播放（浏览器自动播放策略限制），点击右上角音乐按钮后开始
+   首次用户交互时尝试播放；右上角音乐按钮可随时控制
    ========================================================================== */
 (function (w, d) {
   'use strict';
@@ -11,6 +11,8 @@
   var playing = false;
   var listeners = [];
   var fadeTimer = null;
+  var playRequest = 0;
+  var wantsPlayback = false;
 
   /* 目标音量（淡入淡出用） */
   var TARGET_VOLUME = 0.55;
@@ -24,6 +26,7 @@
     audio.volume = 0;
 
     audio.addEventListener('playing', function () {
+      if (!wantsPlayback) { audio.pause(); return; }
       playing = true;
       emit();
     });
@@ -90,31 +93,44 @@
     /* 播放（带淡入） */
     play: function () {
       var a = ensure();
-      function go() {
-        var p = a.play();
-        if (p && p.catch) {
-          p.catch(function () {
-            /* 自动播放被拦截，静默失败 */
-            playing = false;
-            emit();
-          });
-        }
+      var request = ++playRequest;
+      wantsPlayback = true;
+      clearInterval(fadeTimer);
+      var result;
+      try {
+        /* 必须在用户手势的调用栈中执行，不能等待 canplay。 */
+        result = a.play();
+      } catch (e) {
+        wantsPlayback = false;
+        playing = false;
+        emit();
+        return Promise.resolve(false);
+      }
+      return Promise.resolve(result).then(function () {
+        if (request !== playRequest || !wantsPlayback) return false;
         fadeTo(TARGET_VOLUME, 1400);
-      }
-      if (a.readyState >= 2) {
-        go();
-      } else {
-        a.addEventListener('canplay', function once() {
-          a.removeEventListener('canplay', once);
-          go();
-        });
-      }
+        return true;
+      }, function () {
+        if (request === playRequest) {
+          wantsPlayback = false;
+          playing = false;
+          emit();
+        }
+        return false;
+      });
     },
 
     /* 暂停（带淡出） */
     pause: function () {
+      ++playRequest;
+      wantsPlayback = false;
       if (!audio) { playing = false; emit(); return; }
-      fadeTo(0, 700);
+      if (audio.paused) {
+        clearInterval(fadeTimer);
+        audio.pause();
+      } else {
+        fadeTo(0, 700);
+      }
       playing = false;
       emit();
     },

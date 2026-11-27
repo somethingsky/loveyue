@@ -986,28 +986,36 @@
     /* 背景音乐 */
     var bs = $('#btnSound');
     if (bs) {
+      var stopAutoStart = function () {};
       var syncMusicBtn = function (on) {
         bs.classList.toggle('is-on', on);
         bs.setAttribute('aria-label', on ? '暂停背景音乐' : '播放背景音乐');
       };
       bs.addEventListener('click', function () {
         if (!w.Bgm) return;
+        stopAutoStart();
         w.Bgm.toggle();
       });
       if (w.Bgm) {
         w.Bgm.onChange(syncMusicBtn);
         w.Bgm.preload();
 
-        /* 首次用户交互时自动开播（绕过浏览器自动播放限制） */
-        var autoStarted = false;
+        /* 首次用户交互直接发起播放；失败时保留监听，下次交互可重试。 */
+        var autoPending = false;
+        stopAutoStart = function () {
+          d.removeEventListener('pointerdown', firstGesture);
+          d.removeEventListener('keydown', firstGesture);
+        };
         var firstGesture = function (e) {
           /* 点在音乐按钮上时不抢跑，交给按钮自己处理 */
           if (e && e.target && e.target.closest && e.target.closest('#btnSound')) return;
-          if (autoStarted) return;
-          autoStarted = true;
-          d.removeEventListener('pointerdown', firstGesture);
-          d.removeEventListener('keydown', firstGesture);
-          if (w.Bgm && !w.Bgm.playing) w.Bgm.play();
+          if (autoPending) return;
+          if (w.Bgm.playing) { stopAutoStart(); return; }
+          autoPending = true;
+          w.Bgm.play().then(function (started) {
+            autoPending = false;
+            if (started) stopAutoStart();
+          });
         };
         d.addEventListener('pointerdown', firstGesture);
         d.addEventListener('keydown', firstGesture);
